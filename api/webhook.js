@@ -1,14 +1,22 @@
 export default async function handler(req, res) {
-  if (req.method === 'POST') {
-    console.log('Webhook recebido:', req.body);
+
+  try {
+
+    console.log("Método:", req.method);
+    console.log("Body:", req.body);
 
     return res.status(200).json({
       success: true,
-      data: req.body
+      message: "Recebido"
+    });
+
+  } catch (error) {
+
+    console.error(error);
+
+    return res.status(200).json({
+      success: true
     });
   }
 
-  return res.status(200).json({
-    message: 'Webhook online'
-  });
 }
