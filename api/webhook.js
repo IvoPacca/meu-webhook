@@ -1,22 +1,20 @@
 export default async function handler(req, res) {
 
-  try {
+  const evento = {
+    method: req.method,
+    headers: req.headers,
+    body: req.body,
+    date: new Date().toISOString()
+  };
 
-    console.log("Método:", req.method);
-    console.log("Body:", req.body);
+  console.log(JSON.stringify(evento, null, 2));
 
-    return res.status(200).json({
-      success: true,
-      message: "Recebido"
-    });
+  res.setHeader('Access-Control-Allow-Origin', '*');
+  res.setHeader('Access-Control-Allow-Methods', '*');
+  res.setHeader('Access-Control-Allow-Headers', '*');
 
-  } catch (error) {
-
-    console.error(error);
-
-    return res.status(200).json({
-      success: true
-    });
-  }
-
+  return res.status(200).json({
+    success: true,
+    method: req.method
+  });
 }
