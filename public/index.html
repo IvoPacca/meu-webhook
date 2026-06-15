@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Webhook Online</title>
+
+<style>
+body{
+    font-family: Arial, sans-serif;
+    max-width:800px;
+    margin:auto;
+    padding:30px;
+}
+.card{
+    border:1px solid #ddd;
+    border-radius:10px;
+    padding:20px;
+}
+button{
+    padding:10px 20px;
+    cursor:pointer;
+}
+pre{
+    background:#f5f5f5;
+    padding:15px;
+}
+</style>
+</head>
+<body>
+
+<div class="card">
+<h1>Webhook Vercel</h1>
+
+<p>Status: Online</p>
+
+<button onclick="testarWebhook()">
+Enviar teste
+</button>
+
+<pre id="resultado"></pre>
+</div>
+
+<script>
+async function testarWebhook(){
+
+    const resposta = await fetch('/api/webhook', {
+        method:'POST',
+        headers:{
+            'Content-Type':'application/json'
+        },
+        body: JSON.stringify({
+            evento:'teste',
+            data:new Date()
+        })
+    });
+
+    const json = await resposta.json();
+
+    document.getElementById('resultado').textContent =
+        JSON.stringify(json,null,2);
+}
+</script>
+
+</body>
+</html>
