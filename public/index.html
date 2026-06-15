@@ -42,25 +42,19 @@ Enviar teste
 </div>
 
 <script>
-async function testarWebhook(){
+async function atualizar() {
+    const resposta = await fetch('/api/eventos');
+    const dados = await resposta.json();
 
-    const resposta = await fetch('/api/webhook', {
-        method:'POST',
-        headers:{
-            'Content-Type':'application/json'
-        },
-        body: JSON.stringify({
-            evento:'teste',
-            data:new Date()
-        })
-    });
-
-    const json = await resposta.json();
-
-    document.getElementById('resultado').textContent =
-        JSON.stringify(json,null,2);
+    document.getElementById('logs').textContent =
+        JSON.stringify(dados, null, 2);
 }
+
+setInterval(atualizar, 2000);
+atualizar();
 </script>
+
+<pre id="logs"></pre>
 
 </body>
 </html>
